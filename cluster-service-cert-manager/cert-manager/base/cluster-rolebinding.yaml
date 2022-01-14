@@ -1,0 +1,29 @@
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cert-manager-namecheap
+  namespace: cluster-service-cert-manager
+rules:
+  - apiGroups:
+    - acme.namecheap.com
+    resources:
+    - namecheap
+    verbs:
+    - get
+    - list
+    - create
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cert-manager-namecheap
+  namespace: cluster-service-cert-manager
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cert-manager-namecheap
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cluster-service-cert-manager
